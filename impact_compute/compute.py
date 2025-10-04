@@ -18,7 +18,6 @@ def getdata():
   energy=0.5 * mass * speed**2
 
   craterdia=1000*(energy/4.184e15)**(1/3.4)
-
   shockrad=craterdia*5
 
   aftercom = {
