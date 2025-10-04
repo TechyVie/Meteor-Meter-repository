@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <button id="openModalBtn" class="hamburger-btn" aria-label="Open details menu">
+  <span class="bar"></span>
+  <span class="bar"></span>
+  <span class="bar"></span>
+</button>
+
+<div id="myModal" class="modal">
+  <div class="modal-content" id="modalContent">
+    <span class="close" id="closeModalBtn">&times;</span>
+    <h2>Simulation Details</h2>
+    <p>This modal can expand to show more info!</p>
+    <button id="expandBtn">Expand</button>
+    <div id="extraContent" style="display:none;">
+      <p><strong>Extra information:</strong> You can include charts, forms, or any custom HTML here.</p>
+    </div>
+  </div>
+</div>
     <title>Meteor Meter</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <style>
-      /* Oval-shaped box for inputs */
       .coords-oval {
           background: #f2f6fa;
           border: 2px solid #b2c7e4;
@@ -16,7 +32,6 @@
           display: inline-block;
       }
 
-      /* Each label-input pair on one line, but each pair on its own line */
       .coord-row {
           display: flex;
           align-items: center;
@@ -37,7 +52,6 @@
           border: 1px solid #b2c7e4;
       }
 
-      /* Remove bottom margin from last row */
       .coord-row:last-child {
           margin-bottom: 0;
       }
