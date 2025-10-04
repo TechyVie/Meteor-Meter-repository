@@ -1,148 +1,154 @@
+/* Meteor Meter Modern Theme */
+
+/* Main background and container */
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    background: radial-gradient(ellipse at top left, #1a2332 70%, #252e43 100%);
+    color: #f3f6fd;
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: radial-gradient(circle at 70% 30%, #e6f0fc 0%, #c9e4c5 55%, #eff6ee 100%);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
 }
 
-.container {
-    max-width: 540px;
-    margin: 48px auto 0 auto;
-    background: #fcffe6;
-    border-radius: 18px;
-    box-shadow: 0 6px 32px rgba(50, 70, 120, 0.11), 0 1.5px 0 #b7e4c7 inset;
-    padding: 36px 36px 30px 36px;
-    display: flex;
-    flex-direction: column;
-}
 .container.wide {
-    max-width: 1100px;
-    min-width: 900px;
-    margin: 48px auto 0 auto;
-    padding: 36px 40px 30px 40px;
+    max-width: 900px;
+    margin: 30px auto;
+    background: rgba(33, 41, 56, 0.9);
+    border-radius: 32px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.15), 0 0 0 4px #222d3c;
+    padding: 28px 36px 32px 36px;
 }
 
+/* Header */
 h1 {
     text-align: center;
-    font-size: 2.7rem;
-    font-weight: 800;
-    color: #1a3c40;
-    margin-bottom: 38px;
-    letter-spacing: 1.5px;
-    text-shadow: 0px 2px 0px #d4f4dd40;
-}
-
-#map-container {
-    margin-bottom: 28px;
-    min-height: 500px;
-    height: 500px;
-    width: 100%;
-    background: radial-gradient(circle at 52% 48%, #b7e4f7 80%, #eaf2d7 100%);
-    border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(30, 60, 64, 0.09);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    border: 2.5px solid #a2d5c6;
-}
-
-svg {
-    width: 100%;
-    height: 100%;
-    border-radius: 14px;
-    display: block;
-    background: transparent;
-}
-svg .land {
-    fill: #96c867;
-    stroke: #3a5a40;
-    stroke-width: 0.7;
-}
-svg .water {
-    fill: #b7e4f7;
-}
-
-.coords {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px 25px;
-    align-items: center;
-    font-size: 1.15rem;
-    margin-top: 14px;
+    font-size: 2.4rem;
+    letter-spacing: 2px;
+    color: #ffb347;
+    text-shadow: 0 2px 12px #c21807, 0 0 10px #111;
     margin-bottom: 18px;
-    justify-content: center;
 }
 
-.coords label {
-    font-weight: 600;
-    color: #264653;
-    margin-right: 8px;
-    font-size: 1.09rem;
+/* Map container */
+#map-container {
+    background: #161e2b;
+    border-radius: 24px;
+    box-shadow: 0 2px 16px rgba(56,40,80,0.24);
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+/* Coord input oval box - override for theme */
+.coords-oval {
+    background: linear-gradient(90deg, #232b41 0%, #3b425a 100%);
+    border: 2px solid #c21807;
+    border-radius: 32px;
+    padding: 24px 36px;
+    margin: 12px 0 20px 0;
+    box-shadow: 0 4px 20px rgba(194,24,7,0.14), 0 0 0 4px #252e43;
+    display: inline-block;
+}
+
+/* Each label-input pair on one line, but each pair on its own line */
+.coord-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.coord-row label {
+    margin-right: 14px;
+    font-weight: 500;
+    min-width: 135px;
+    color: #ffb347;
+    font-size: 1rem;
     letter-spacing: 0.5px;
 }
 
-.coords input[type="number"] {
-    padding: 9px 16px;
-    border-radius: 8px;
-    border: 2px solid #a2d5c6;
-    background: #f7fff2;
-    box-shadow: 0 1px 7px rgba(40, 110, 65, 0.11);
-    font-size: 1.06rem;
-    width: 124px;
-    transition: border-color 0.22s, box-shadow 0.14s;
+.coord-row input {
+    width: 130px;
+    font-size: 1em;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid #ffb347;
+    background: #252e43;
+    color: #f3f6fd;
+    box-shadow: 0 2px 8px rgba(194,24,7,0.08);
+    transition: border 0.2s, box-shadow 0.2s;
 }
-
-.coords input[type="number"]:focus {
-    border-color: #1a3c40;
+.coord-row input:focus {
+    border: 2px solid #c21807;
+    box-shadow: 0 2px 16px rgba(255,179,71,0.18);
     outline: none;
-    box-shadow: 0 2px 16px #b7e4c740;
-    background: #e6f0fc;
 }
 
+/* Remove bottom margin from last row */
+.coord-row:last-child {
+    margin-bottom: 0;
+}
+
+/* Impact label/message */
 .impact-label {
-    font-weight: bold;
-    color: #e76f51;
-    margin-left: 18px;
-    font-size: 1.17rem;
-    letter-spacing: 1.1px;
-    text-shadow: 0px 2px 0px #fcffe6;
+    display: block;
+    font-size: 1.05em;
+    margin-top: 10px;
+    color: #ffb347;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 12px #c21807;
 }
 
+/* Simulate button styling */
 .actions {
-    margin-top: 16px;
-    display: flex;
-    justify-content: flex-end;
+    text-align: center;
+    margin-top: 20px;
 }
 
-.actions button {
-    background: linear-gradient(90deg, #1a3c40 80%, #a2d5c6 120%);
-    color: #fff;
-    font-size: 1.1rem;
+#calc-btn {
+    background: linear-gradient(90deg, #c21807 0%, #ffb347 100%);
+    color: #232b41;
+    font-size: 1.12em;
     font-weight: 700;
-    padding: 12px 34px;
-    border-radius: 9px;
     border: none;
-    box-shadow: 0 2px 16px rgba(50, 70, 120, 0.14);
+    border-radius: 24px;
+    padding: 12px 36px;
     cursor: pointer;
-    transition: background 0.18s, box-shadow 0.14s;
-    letter-spacing: 1.1px;
+    box-shadow: 0 2px 12px #c21807, 0 0 0 4px #ffb34733;
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+}
+#calc-btn:hover {
+    background: linear-gradient(90deg, #ffb347 0%, #c21807 100%);
+    color: #fffbf6;
+    box-shadow: 0 4px 24px #c21807, 0 0 0 6px #ffb34744;
 }
 
-.actions button:hover {
-    background: linear-gradient(90deg, #a2d5c6 40%, #1a3c40 120%);
-    box-shadow: 0 3px 24px rgba(50, 70, 120, 0.18);
-    color: #264653;
+/* Map SVG land/water styling - keep blue color */
+.land {
+    fill: #4177b6;         /* blue for land */
+    stroke: #205088;       /* darker blue stroke for land */
+    stroke-width: 0.5px;
+}
+.water {
+    fill: #243b68;         /* blue for water */
 }
 
-@media (max-width: 720px) {
-    .container, .container.wide { max-width: 97%; min-width: unset; padding: 12px; }
-    #map-container { min-height: 220px; height: 220px; }
-    .coords { flex-direction: column; gap: 13px 0; }
-    h1 { font-size: 2.1rem; }
+/* Meteor Pin */
+.pin {
+    fill: #ffb347;
+    stroke: #c21807;
+    stroke-width: 2;
+    filter: drop-shadow(0 0 6px #c21807);
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+    .container.wide {
+        padding: 12px 2vw 18px 2vw;
+    }
+    .coords-oval {
+        padding: 14px 10vw;
+    }
+    #calc-btn {
+        padding: 10px 18vw;
+        font-size: 1em;
+    }
 }
