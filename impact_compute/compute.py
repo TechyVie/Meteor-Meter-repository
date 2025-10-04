@@ -5,7 +5,7 @@ import math
 compute=Flask(__name__)
 CORS(compute)
 
-@app.route('/api/simulate', methods=['POST'])
+@compute.route('/api/simulate', methods=['POST'])
 def getdata():
   data=request.json
   dia=data['diameter']
@@ -14,8 +14,8 @@ def getdata():
   long=data['longitude']
 
   density=3000
-  mass=(4/3) * math.pi * (diameter/2)**3 * density
-  energy=0.5 * mass * speed**2
+  mass=(4/3) * math.pi * (dia/2)**3 * density
+  energy=0.5 * mass * spd**2
 
   craterdia=1000*(energy/4.184e15)**(1/3.4)
   shockrad=craterdia*5
@@ -28,6 +28,6 @@ def getdata():
   }
   return jsonify(aftercom)
 
-if __name__='__main__':
+if __name__=='__main__':
   compute.run(debug=True)
 
