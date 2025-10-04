@@ -4,6 +4,44 @@
     <title>Meteor Meter</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <style>
+      /* Oval-shaped box for inputs */
+      .coords-oval {
+          background: #f2f6fa;
+          border: 2px solid #b2c7e4;
+          border-radius: 32px;
+          padding: 20px 32px;
+          margin: 10px 0 18px 0;
+          box-shadow: 0 2px 12px rgba(120,160,200,0.07);
+          display: inline-block;
+      }
+
+      /* Each label-input pair on one line, but each pair on its own line */
+      .coord-row {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+      }
+
+      .coord-row label {
+          margin-right: 12px;
+          font-weight: 500;
+          min-width: 120px;
+      }
+
+      .coord-row input {
+          width: 120px;
+          font-size: 0.95em;
+          padding: 2px 8px;
+          border-radius: 8px;
+          border: 1px solid #b2c7e4;
+      }
+
+      /* Remove bottom margin from last row */
+      .coord-row:last-child {
+          margin-bottom: 0;
+      }
+    </style>
 </head>
 <body>
     <div class="container wide">
@@ -11,14 +49,24 @@
         <div id="map-container"></div>
         <div class="coords">
             <p><i>Click a point on the map to automatically get the latitude and longitude.</i></p>
-            <label for="latitude">Impact Latitude:</label>
-            <input id="latitude" type="number" step="0.0001" placeholder="e.g. 34.0522">
-            <label for="longitude">Impact Longitude:</label>
-            <input id="longitude" type="number" step="0.0001" placeholder="e.g. -118.2437">
-            <label for="diameter">Meteor Diameter:</label>
-            <input id="diameter" type="number" step="0.01" placeholder="e.g. 10.5">
-            <label for="speed">Meteor Speed:</label>
-            <input id="speed" type="number" step="0.01" placeholder="e.g. 20.2">
+            <div class="coords-oval">
+                <div class="coord-row">
+                    <label for="latitude">Impact Latitude:</label>
+                    <input id="latitude" type="number" step="0.0001" placeholder="e.g. 34.0522">
+                </div>
+                <div class="coord-row">
+                    <label for="longitude">Impact Longitude:</label>
+                    <input id="longitude" type="number" step="0.0001" placeholder="e.g. -118.2437">
+                </div>
+                <div class="coord-row">
+                    <label for="diameter">Meteor Diameter:</label>
+                    <input id="diameter" type="number" step="0.01" placeholder="e.g. 10.5">
+                </div>
+                <div class="coord-row">
+                    <label for="speed">Meteor Speed:</label>
+                    <input id="speed" type="number" step="0.01" placeholder="e.g. 20.2">
+                </div>
+            </div>
             <span class="impact-label" id="impact-status"></span>
         </div>
         <div class="actions">
