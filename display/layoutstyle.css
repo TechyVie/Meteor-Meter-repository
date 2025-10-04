@@ -2,7 +2,7 @@ body {
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(120deg, #f6ffe3 80%, #cde7ff 100%);
+    background: radial-gradient(circle at 70% 30%, #e6f0fc 0%, #c9e4c5 55%, #eff6ee 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -12,39 +12,60 @@ body {
 .container {
     max-width: 540px;
     margin: 48px auto 0 auto;
-    background: #fffbe6;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(80,120,60,0.11);
-    padding: 32px 32px 28px 32px;
+    background: #fcffe6;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(50, 70, 120, 0.11), 0 1.5px 0 #b7e4c7 inset;
+    padding: 36px 36px 30px 36px;
     display: flex;
     flex-direction: column;
-    gap: 0;
+}
+.container.wide {
+    max-width: 1100px;
+    min-width: 900px;
+    margin: 48px auto 0 auto;
+    padding: 36px 40px 30px 40px;
 }
 
 h1 {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.7rem;
     font-weight: 800;
-    color: #2d6a4f;
+    color: #1a3c40;
     margin-bottom: 38px;
-    letter-spacing: 2px;
-    text-shadow: 1px 2px 0px #cde7ff60;
+    letter-spacing: 1.5px;
+    text-shadow: 0px 2px 0px #d4f4dd40;
 }
 
 #map-container {
     margin-bottom: 28px;
-    min-height: 400px;
-    height: 400px;
+    min-height: 500px;
+    height: 500px;
     width: 100%;
-    background: linear-gradient(120deg, #eaf2d7 60%, #d5e6f3 100%);
-    border-radius: 12px;
-    box-shadow: 0 3px 16px rgba(56,102,65,0.10);
+    background: radial-gradient(circle at 52% 48%, #b7e4f7 80%, #eaf2d7 100%);
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(30, 60, 64, 0.09);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    border: 2px solid #b7e4c7;
+    border: 2.5px solid #a2d5c6;
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+    display: block;
+    background: transparent;
+}
+svg .land {
+    fill: #96c867;
+    stroke: #3a5a40;
+    stroke-width: 0.7;
+}
+svg .water {
+    fill: #b7e4f7;
 }
 
 .coords {
@@ -52,74 +73,76 @@ h1 {
     flex-wrap: wrap;
     gap: 18px 25px;
     align-items: center;
-    font-size: 1.13rem;
-    margin-top: 12px;
+    font-size: 1.15rem;
+    margin-top: 14px;
     margin-bottom: 18px;
     justify-content: center;
 }
 
 .coords label {
     font-weight: 600;
-    color: #386641;
-    margin-right: 7px;
-    font-size: 1.07rem;
+    color: #264653;
+    margin-right: 8px;
+    font-size: 1.09rem;
     letter-spacing: 0.5px;
 }
 
 .coords input[type="number"] {
-    padding: 8px 14px;
+    padding: 9px 16px;
     border-radius: 8px;
-    border: 2px solid #b7e4c7;
+    border: 2px solid #a2d5c6;
     background: #f7fff2;
-    box-shadow: 0 1px 6px rgba(56,102,65,0.09);
-    font-size: 1.05rem;
-    width: 120px;
+    box-shadow: 0 1px 7px rgba(40, 110, 65, 0.11);
+    font-size: 1.06rem;
+    width: 124px;
     transition: border-color 0.22s, box-shadow 0.14s;
 }
 
 .coords input[type="number"]:focus {
-    border-color: #386641;
+    border-color: #1a3c40;
     outline: none;
-    box-shadow: 0 2px 12px #52b78840;
+    box-shadow: 0 2px 16px #b7e4c740;
+    background: #e6f0fc;
 }
 
 .impact-label {
     font-weight: bold;
-    color: #c21807;
-    margin-left: 16px;
-    font-size: 1.14rem;
-    letter-spacing: 1.2px;
-    text-shadow: 1px 2px 0px #fffbe6;
+    color: #e76f51;
+    margin-left: 18px;
+    font-size: 1.17rem;
+    letter-spacing: 1.1px;
+    text-shadow: 0px 2px 0px #fcffe6;
 }
 
 .actions {
-    margin-top: 14px;
+    margin-top: 16px;
     display: flex;
     justify-content: flex-end;
 }
 
 .actions button {
-    background: linear-gradient(90deg, #386641 70%, #52b788 130%);
+    background: linear-gradient(90deg, #1a3c40 80%, #a2d5c6 120%);
     color: #fff;
-    font-size: 1.09rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    padding: 10px 30px;
-    border-radius: 8px;
+    padding: 12px 34px;
+    border-radius: 9px;
     border: none;
-    box-shadow: 0 2px 12px rgba(56,102,65,0.13);
+    box-shadow: 0 2px 16px rgba(50, 70, 120, 0.14);
     cursor: pointer;
     transition: background 0.18s, box-shadow 0.14s;
-    letter-spacing: 1px;
+    letter-spacing: 1.1px;
 }
 
 .actions button:hover {
-    background: linear-gradient(90deg, #52b788 50%, #386641 130%);
-    box-shadow: 0 3px 18px rgba(80,120,60,0.18);
+    background: linear-gradient(90deg, #a2d5c6 40%, #1a3c40 120%);
+    box-shadow: 0 3px 24px rgba(50, 70, 120, 0.18);
+    color: #264653;
 }
 
 @media (max-width: 720px) {
-    .container { max-width: 97%; padding: 12px; }
+    .container, .container.wide { max-width: 97%; min-width: unset; padding: 12px; }
     #map-container { min-height: 220px; height: 220px; }
-    .coords { flex-direction: column; gap: 12px 0; }
-    h1 { font-size: 2rem; }
+    .coords { flex-direction: column; gap: 13px 0; }
+    h1 { font-size: 2.1rem; }
 }
