@@ -1,92 +1,93 @@
-  const width = Math.max(document.getElementById('map-container').offsetWidth, 900);
-  const height = 500;
+const width = Math.max(document.getElementById('map-container').offsetWidth, 900);
+const height = 500;
 
-  const svg = d3.select("#map-container")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .style("cursor", "crosshair");
+const svg = d3.select("#map-container")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height)
+  .style("cursor", "crosshair");
 
-  // Water background
-  svg.append("rect")
-    .attr("class", "water")
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("width", width)
-    .attr("height", height);
+// Water background
+svg.append("rect")
+  .attr("class", "water")
+  .attr("x", 0)
+  .attr("y", 0)
+  .attr("width", width)
+  .attr("height", height);
 
-  const projection = d3.geoEquirectangular()
-    .scale(width / 7.5)
-    .translate([width / 2, height / 2]);
+const projection = d3.geoEquirectangular()
+  .scale(width / 7.5)
+  .translate([width / 2, height / 2]);
 
-  const path = d3.geoPath().projection(projection);
-  const g = svg.append("g");
+const path = d3.geoPath().projection(projection);
+const g = svg.append("g");
 
-  d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(function(world) {
-    const countries = topojson.feature(world, world.objects.countries).features;
-    g.selectAll("path")
-      .data(countries)
-      .enter().append("path")
-      .attr("class", "land")
-      .attr("d", path);
+d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(function(world) {
+  const countries = topojson.feature(world, world.objects.countries).features;
+  g.selectAll("path")
+    .data(countries)
+    .enter().append("path")
+    .attr("class", "land")
+    .attr("d", path);
+});
+
+let currentZoom = 1; // Track current zoom scale
+
+const zoom = d3.zoom()
+  .scaleExtent([1, 10])
+  .on("zoom", function(event) {
+    currentZoom = event.transform.k;
+    g.attr("transform", event.transform);
+    // Resize pins on zoom
+    g.selectAll(".pin")
+      .attr("r", 8 / currentZoom);
   });
 
-  let currentZoom = 1; // Track current zoom scale
+svg.call(zoom);
 
-  const zoom = d3.zoom()
-    .scaleExtent([1, 10])
-    .on("zoom", function(event) {
-      currentZoom = event.transform.k;
-      g.attr("transform", event.transform);
-      // Optionally, update any pins to resize on zoom
-      g.selectAll(".pin")
-        .attr("r", 8 / currentZoom); // Dynamically update pin size
-    });
+svg.on("click", function(event) {
+  const transform = d3.zoomTransform(svg.node());
+  const [x, y] = d3.pointer(event, svg.node());
+  const invX = (x - transform.x) / transform.k;
+  const invY = (y - transform.y) / transform.k;
+  let coords = projection.invert([invX, invY]);
+  if (!coords) return;
+  const [lon, lat] = coords;
 
-  svg.call(zoom);
+  svg.selectAll(".pin").remove();
 
-  svg.on("click", function(event) {
-    const transform = d3.zoomTransform(svg.node());
-    const [x, y] = d3.pointer(event, svg.node());
-    const invX = (x - transform.x) / transform.k;
-    const invY = (y - transform.y) / transform.k;
-    let coords = projection.invert([invX, invY]);
-    if (!coords) return;
-    const [lon, lat] = coords;
+  g.append("circle")
+    .attr("class", "pin")
+    .attr("cx", invX)
+    .attr("cy", invY)
+    .attr("r", 8 / currentZoom) // Dynamic pin size
+    .attr("fill", "#c21807")
+    .attr("stroke", "#fff")
+    .attr("stroke-width", 2);
 
-    svg.selectAll(".pin").remove();
+  document.getElementById('latitude').value = lat.toFixed(4);
+  document.getElementById('longitude').value = lon.toFixed(4);
+});
 
-    g.append("circle")
-      .attr("class", "pin")
-      .attr("cx", invX)
-      .attr("cy", invY)
-      .attr("r", 8 / currentZoom) // Pin radius scales with zoom
-      .attr("fill", "#c21807")
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 2);
+document.getElementById('calc-btn').onclick = function() {
+  const lat = parseFloat(document.getElementById('latitude').value);
+  const lon = parseFloat(document.getElementById('longitude').value);
+  const dia = parseFloat(document.getElementById('diameter').value);
+  const speed = parseFloat(document.getElementById('speed').value);
 
-    document.getElementById('latitude').value = lat.toFixed(4);
-    document.getElementById('longitude').value = lon.toFixed(4);
-  });
-
-  document.getElementById('calc-btn').onclick = function() {
-    const lat = parseFloat(document.getElementById('latitude').value);
-    const lon = parseFloat(document.getElementById('longitude').value);
-    const dia = parseFloat(document.getElementById('diameter').value);
-    const speed = parseFloat(document.getElementById('speed').value);
-
-    if(isNaN(lat) || isNaN(lon) || isNaN(dia) || isNaN(speed)) {
-      document.getElementById('impact-status').textContent = 'Please fill all fields with valid numbers.';
-      return;
-    }
-    const damageRadius = Math.round((dia * speed) / 55 * 100) / 100;
-    let severity = 'Minor';
-    if(damageRadius > 2) severity = 'Severe';
-    else if(damageRadius > 1) severity = 'Moderate';
-    document.getElementById('impact-status').textContent =
-      `Impact Detected: ${severity} damage radius ${damageRadius} km`;
-  };                        
+  if(isNaN(lat) || isNaN(lon) || isNaN(dia) || isNaN(speed)) {
+    document.getElementById('impact-status').textContent = 'Please fill all fields with valid numbers.';
+    return;
+  }
+  const damageRadius = Math.round((dia * speed) / 55 * 100) / 100;
+  let severity = 'Minor';
+  if(damageRadius > 2) severity = 'Severe';
+  else if(damageRadius > 1) severity = 'Moderate';
+  document.getElementById('impact-status').textContent =
+    `Impact Detected: ${severity} damage radius ${damageRadius} km`;
 };
+
+// Modal popup logic
 document.getElementById('openModalBtn').onclick = function() {
   document.getElementById('myModal').style.display = 'block';
 };
@@ -98,16 +99,17 @@ window.onclick = function(event) {
     document.getElementById('myModal').style.display = 'none';
   }
 };
-document.getElementById('expandBtn').onclick = function() {
-  document.getElementById('extraContent').style.display = 'block';
-};
+
+// Expand/collapse extra content
+document.getElementById('extraContent').style.display = 'none'; // Hide on load
 document.getElementById('expandBtn').onclick = function() {
   var content = document.getElementById('extraContent');
+  var icon = this.querySelector('.expand-icon');
   if (content.style.display === 'block') {
     content.style.display = 'none';
+    if (icon) icon.innerHTML = '&#9660;'; // Down arrow
   } else {
     content.style.display = 'block';
+    if (icon) icon.innerHTML = '&#9650;'; // Up arrow
   }
 };
-
-
