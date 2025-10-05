@@ -28,7 +28,7 @@ def getdata():
   craterdia=1000*(energy/4.184e15)**(1/3.4)
   shockrad=craterdia*5
   tsunamiheight=0.1*water_depth
-  
+  projdis=[craterdia*2, craterdia*5]
   aftercom = {
     'impactCenter': {'lat':lat, 'lon': long},
     'craterLength': craterdia,
