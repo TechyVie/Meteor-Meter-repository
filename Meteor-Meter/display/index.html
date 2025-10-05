@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Hamburger button and modal must be inside body -->
     <button id="openModalBtn" class="hamburger-btn" aria-label="Open details menu">
       <span class="bar"></span>
       <span class="bar"></span>
@@ -84,7 +83,6 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/topojson-client@3"></script>
     <script>
-      // Wider map display calculation
       const width = Math.max(document.getElementById('map-container').offsetWidth, 900);
       const height = 500;
 
@@ -94,7 +92,6 @@
         .attr("height", height)
         .style("cursor", "crosshair");
 
-      // Water background
       svg.append("rect")
         .attr("class", "water")
         .attr("x", 0)
@@ -118,14 +115,13 @@
           .attr("d", path);
       });
 
-      let currentZoom = 1; // Track current zoom scale
+      let currentZoom = 1; 
 
       const zoom = d3.zoom()
         .scaleExtent([1, 10])
         .on("zoom", function(event) {
           currentZoom = event.transform.k;
           g.attr("transform", event.transform);
-          // Resize pins on zoom
           g.selectAll(".pin")
             .attr("r", 8 / currentZoom);
         });
@@ -147,7 +143,7 @@
           .attr("class", "pin")
           .attr("cx", invX)
           .attr("cy", invY)
-          .attr("r", 8 / currentZoom) // Dynamic pin size
+          .attr("r", 8 / currentZoom) 
           .attr("fill", "#c21807")
           .attr("stroke", "#fff")
           .attr("stroke-width", 2);
@@ -174,7 +170,6 @@
           `Impact Detected: ${severity} damage radius ${damageRadius} km`;
       };
 
-      // Modal popup logic
       document.getElementById('openModalBtn').onclick = function() {
         document.getElementById('myModal').style.display = 'block';
       };
@@ -186,17 +181,16 @@
           document.getElementById('myModal').style.display = 'none';
         }
       };
-      // Expand/collapse extra content
-      document.getElementById('extraContent').style.display = 'none'; // Hide on load
+      document.getElementById('extraContent').style.display = 'none'; 
       document.getElementById('expandBtn').onclick = function() {
         var content = document.getElementById('extraContent');
         var icon = this.querySelector('.expand-icon');
         if (content.style.display === 'block') {
           content.style.display = 'none';
-          if (icon) icon.innerHTML = '&#9660;'; // Down arrow
+          if (icon) icon.innerHTML = '&#9660;';
         } else {
           content.style.display = 'block';
-          if (icon) icon.innerHTML = '&#9650;'; // Up arrow
+          if (icon) icon.innerHTML = '&#9650;';
         }
       };
     </script>
