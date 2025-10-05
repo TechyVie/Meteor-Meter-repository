@@ -1,5 +1,5 @@
 # Meteor-Meter-repository
-This repository contains the files and codes for the Meteor Madness challenge
+This repository contains the files and codes for the Meteor Madness challenge\
 Meteor Meter is a simple 2d asteroid simulation that showcases the hazards it might cause upon impact. 
 This includes assessing how far can the the meteor impact and the disasters it will create affect not 
 only communities, but also our environment.
