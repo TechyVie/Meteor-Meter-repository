@@ -108,4 +108,13 @@ window.onclick = function(event) {
 document.getElementById('expandBtn').onclick = function() {
   document.getElementById('extraContent').style.display = 'block';
 };
+document.getElementById('expandBtn').onclick = function() {
+  var content = document.getElementById('extraContent');
+  if (content.style.display === 'block') {
+    content.style.display = 'none';
+  } else {
+    content.style.display = 'block';
+  }
+};
+
 
