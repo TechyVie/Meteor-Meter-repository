@@ -36,14 +36,17 @@ body {
   background-color: rgba(0,0,0,0.5);
 }
 .modal-content {
-  background: #fff;
+  background: linear-gradient(135deg, #2193b0 0%, #0a102b 70%, #891d32 100%;
   margin: 10% auto;
   padding: 24px;
   border-radius: 8px;
   width: 80%;
   max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
   box-shadow: 0 6px 18px rgba(0,0,0,0.2);
   position: relative;
+  font-family: 'Segoe UI', Arial, Sans-Serif;
 }
 .close {
   color: #888;
@@ -63,7 +66,36 @@ body {
     box-shadow: 0 4px 30px rgba(0,0,0,0.15), 0 0 0 4px #222d3c;
     padding: 28px 36px 32px 36px;
 }
+.expand-btn {
+  background: linear-gradient(90deg, #bbbbbb 0%, #6e6e6e 70%, #b41630 100%);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 22px;
+  font-size: 1.05em;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 3px 12px rgba(110,110,110,0.14);
+  transition: background 0.2s, transform 0.12s;
+}
 
+.expand-btn:hover, .expand-btn:focus {
+  background: linear-gradient(90deg, #a0142b 0%, #595959 100%);
+  transform: scale(1.05);
+  outline: none;
+}
+
+.expand-icon {
+  font-size: 1.3em;
+}
+
+.extraContent {
+    display: none;
+}
 h1 {
     text-align: center;
     font-size: 2.4rem;
